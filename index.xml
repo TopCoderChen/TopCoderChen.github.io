@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>QDC personal website</title>
+    <link>https://TopCoderChen.github.io/</link>
+    <description>Recent content on QDC personal website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Yuanyuan GE 2020</copyright>
+    
+	<atom:link href="https://TopCoderChen.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://TopCoderChen.github.io/about/</link>
+      <pubDate>Sun, 21 Jun 2020 13:50:17 -0700</pubDate>
+      
+      <guid>https://TopCoderChen.github.io/about/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
