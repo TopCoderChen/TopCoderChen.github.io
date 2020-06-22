@@ -13,7 +13,7 @@
     
     
     <item>
-      <title>Batch_norm</title>
+      <title>Batch Normalization</title>
       <link>https://TopCoderChen.github.io/post/batch_norm/</link>
       <pubDate>Sun, 21 Jun 2020 16:58:37 -0700</pubDate>
       
@@ -27,7 +27,7 @@ Fully connected network impl Number of layers = 1 + number of hidden layers</des
     </item>
     
     <item>
-      <title>Cs231n</title>
+      <title>CS231n learning note</title>
       <link>https://TopCoderChen.github.io/post/cs231n/</link>
       <pubDate>Sun, 21 Jun 2020 15:02:44 -0700</pubDate>
       

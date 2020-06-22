@@ -13,7 +13,7 @@
     
     
     <item>
-      <title>Batch_norm</title>
+      <title>Batch Normalization</title>
       <link>https://TopCoderChen.github.io/post/batch_norm/</link>
       <pubDate>Sun, 21 Jun 2020 16:58:37 -0700</pubDate>
       
@@ -28,15 +28,15 @@ Fully connected network impl Number of layers = 1 + number of hidden layers</des
     
     <item>
       <title>DDIA reading note</title>
-      <link>https://TopCoderChen.github.io/blog/new-post/</link>
+      <link>https://TopCoderChen.github.io/blog/ddia/</link>
       <pubDate>Sun, 21 Jun 2020 15:18:25 -0700</pubDate>
       
-      <guid>https://TopCoderChen.github.io/blog/new-post/</guid>
+      <guid>https://TopCoderChen.github.io/blog/ddia/</guid>
       <description>&amp;laquo;Design Data Intensive Application&amp;raquo;</description>
     </item>
     
     <item>
-      <title>Cs231n</title>
+      <title>CS231n learning note</title>
       <link>https://TopCoderChen.github.io/post/cs231n/</link>
       <pubDate>Sun, 21 Jun 2020 15:02:44 -0700</pubDate>
       
