@@ -7,10 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>©QDC GE 2020</copyright>
-    <lastBuildDate>Sun, 21 Jun 2020 15:02:44 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2020 16:58:37 -0700</lastBuildDate>
     
 	<atom:link href="https://TopCoderChen.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Batch_norm</title>
+      <link>https://TopCoderChen.github.io/post/batch_norm/</link>
+      <pubDate>Sun, 21 Jun 2020 16:58:37 -0700</pubDate>
+      
+      <guid>https://TopCoderChen.github.io/post/batch_norm/</guid>
+      <description>https://cs231n.github.io/neural-networks-2/
+Batch normalization is normalizing based on each feature dimention (axis = 0) cross all examples in the batch. While layer normalziation is for single training example.
+Gradient calculation It&amp;rsquo;s important to draw the computation dependency graph to better calculate the backward gradient.
+The gradient calculation can be made simplified by using the graph and combining common terms in the expression.
+One good gradient calculation post : https://kevinzakka.github.io/2016/09/14/batch_normalization/
+Fully connected network impl Number of layers = 1 + number of hidden layers</description>
+    </item>
     
     <item>
       <title>Cs231n</title>

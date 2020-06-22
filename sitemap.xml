@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://TopCoderChen.github.io/post/batch_norm/</loc>
+    <lastmod>2020-06-21T16:58:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TopCoderChen.github.io/post/</loc>
+    <lastmod>2020-06-21T16:58:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TopCoderChen.github.io/</loc>
+    <lastmod>2020-06-21T16:58:37-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://TopCoderChen.github.io/blog/</loc>
     <lastmod>2020-06-21T15:18:25-07:00</lastmod>
   </url>
@@ -13,17 +28,7 @@
   </url>
   
   <url>
-    <loc>https://TopCoderChen.github.io/</loc>
-    <lastmod>2020-06-21T15:18:25-07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://TopCoderChen.github.io/post/cs231n/</loc>
-    <lastmod>2020-06-21T15:02:44-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TopCoderChen.github.io/post/</loc>
     <lastmod>2020-06-21T15:02:44-07:00</lastmod>
   </url>
   
