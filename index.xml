@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>©QDC GE 2020</copyright>
-    <lastBuildDate>Sun, 21 Jun 2020 17:57:35 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jun 2020 11:25:58 -0700</lastBuildDate>
     
 	<atom:link href="https://TopCoderChen.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Convolutional Networks</title>
+      <link>https://TopCoderChen.github.io/post/cnn/</link>
+      <pubDate>Sat, 27 Jun 2020 11:25:58 -0700</pubDate>
+      
+      <guid>https://TopCoderChen.github.io/post/cnn/</guid>
+      <description>https://cs231n.github.io/assignments2020/assignment2/#q4-convolutional-networks-30-points
+Convolution layer implementation In CNN, weight is for filter;
+The number of input examples and number of filters all impact how many weight params are needed.
+forward pass Note
+ Pad the input Don&amp;rsquo;t forget to add bias term  def conv_forward_naive(x, w, b, conv_param): &amp;quot;&amp;quot;&amp;quot; A naive implementation of the forward pass for a convolutional layer. The input consists of N data points, each with C channels, height H and width W.</description>
+    </item>
     
     <item>
       <title>Blockchain learning note</title>

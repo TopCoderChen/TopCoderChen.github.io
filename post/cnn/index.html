@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        <meta name="twitter:card" content="summary"/>
+    
+
+
+
+<meta name="twitter:title" content="Convolutional Networks"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@"/>
+
+
+
+  	<meta property="og:title" content="Convolutional Networks &middot; QDC personal website" />
+  	<meta property="og:site_name" content="QDC personal website" />
+  	<meta property="og:url" content="https://TopCoderChen.github.io/post/cnn/" />
+
+    
+        
+            <meta property="og:image" content="/images/cats.png"/>
+        
+    
+
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2020-06-27T11:25:58-07:00" />
+
+    
+    
+
+    <title>Convolutional Networks &middot; QDC personal website</title>
+
+    
+    <meta name="description" content="https://cs231n.github.io/assignments2020/assignment2/#q4-convolutional-networks-30-points
+Convolution layer implementation In CNN, weight is for filter;
+The num" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://TopCoderChen.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="https://TopCoderChen.github.io/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="https://TopCoderChen.github.io/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="https://TopCoderChen.github.io/css/nav.css" />
+
+    
+
+    
+
+    
+      
+          <link href="https://TopCoderChen.github.io/index.xml" rel="alternate" type="application/rss+xml" title="QDC personal website" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.72.0" />
+
+    <link rel="canonical" href="https://TopCoderChen.github.io/post/cnn/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null ,
+        "logo": "https://TopCoderChen.github.io/images/logo.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://TopCoderChen.github.io/images/logo.png",
+            "width": 250,
+            "height": 250
+        }, 
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Convolutional Networks",
+    "name": "Convolutional Networks",
+    "wordCount":  651 ,
+    "timeRequired": "PT4M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "https://TopCoderChen.github.io/post/cnn/",
+    "datePublished": "2020-06-27T11:25Z",
+    "dateModified": "2020-06-27T11:25Z",
+    
+    
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://TopCoderChen.github.io/post/cnn/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            <br />
+            <li class="nav-opened" role="presentation">
+            	<a href="https://TopCoderChen.github.io/">Home</a>
+            </li>
+        
+            <br />
+            <li class="nav-opened" role="presentation">
+            	<a href="https://TopCoderChen.github.io/post">AI</a>
+            </li>
+        
+            <br />
+            <li class="nav-opened" role="presentation">
+            	<a href="https://TopCoderChen.github.io/blog">Blog</a>
+            </li>
+        
+            <br />
+            <li class="nav-opened" role="presentation">
+            	<a href="https://TopCoderChen.github.io/contact">Contact</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="https://TopCoderChen.github.io/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo" href="https://TopCoderChen.github.io/"><img src="https://TopCoderChen.github.io/images/logo.png" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">Convolutional Networks</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2020-06-27T11:25:58-07:00">
+            Jun 27, 2020
+          </time>
+        
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      <p><a href="https://cs231n.github.io/assignments2020/assignment2/#q4-convolutional-networks-30-points">https://cs231n.github.io/assignments2020/assignment2/#q4-convolutional-networks-30-points</a></p>
+<h1 id="convolution-layer-implementation">Convolution layer implementation</h1>
+<p>In CNN, weight is for filter;</p>
+<p>The number of input examples and number of filters all impact how many weight params are needed.</p>
+<h2 id="forward-pass">forward pass</h2>
+<p>Note</p>
+<ol>
+<li>Pad the input</li>
+<li>Don&rsquo;t forget to add bias term</li>
+</ol>
+<pre><code>def conv_forward_naive(x, w, b, conv_param):
+    &quot;&quot;&quot;
+    A naive implementation of the forward pass for a convolutional layer.
+
+    The input consists of N data points, each with C channels, height H and
+    width W. We convolve each input with F different filters, where each filter
+    spans all C channels and has height HH and width WW.
+
+    Input:
+    - x: Input data of shape (N, C, H, W)
+    - w: Filter weights of shape (F, C, HH, WW)
+    - b: Biases, of shape (F,)
+    - conv_param: A dictionary with the following keys:
+      - 'stride': The number of pixels between adjacent receptive fields in the
+        horizontal and vertical directions.
+      - 'pad': The number of pixels that will be used to zero-pad the input. 
+        
+
+    During padding, 'pad' zeros should be placed symmetrically (i.e equally on both sides)
+    along the height and width axes of the input. Be careful not to modfiy the original
+    input x directly.
+
+    Returns a tuple of:
+    - out: Output data, of shape (N, F, H', W') where H' and W' are given by
+      H' = 1 + (H + 2 * pad - HH) / stride
+      W' = 1 + (W + 2 * pad - WW) / stride
+    - cache: (x, w, b, conv_param)
+    &quot;&quot;&quot;
+    out = None
+    ###########################################################################
+    # TODO: Implement the convolutional forward pass.                         #
+    # Hint: you can use the function np.pad for padding.                      #
+    ###########################################################################
+    # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+
+    stride = conv_param['stride']
+    pad = conv_param['pad']
+    N, C, H, W = x.shape
+    F, _, HH, WW = w.shape
+    H_out = 1 + int((H + 2 * pad - HH) / stride)
+    W_out = 1 + int((W + 2 * pad - WW) / stride)
+    out = np.zeros((N, F, H_out, W_out))
+    for i in range(N):
+      # pad_width applies to each axis
+      padded_x = np.pad(x[i], pad_width=((0,0),(pad,pad),(pad,pad)), mode='constant')
+      for f in range(F):
+        for hh in range(H_out):
+          for ww in range(W_out):
+            res = w[f] * padded_x[:, stride*hh:stride*hh+HH, stride*ww:stride*ww+WW]
+            res = np.sum(res) + b[f]  # dot + add the bias term
+            out[i, f, hh, ww] = res
+
+    # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+    ###########################################################################
+    #                             END OF YOUR CODE                            #
+    ###########################################################################
+    cache = (x, w, b, conv_param)
+    return out, cache
+</code></pre><h2 id="backward-pass">backward pass</h2>
+<p>dout和之前的out有相同的shape;</p>
+<p>不要忘记了先pad出一个临时的x[i]和dx_, 最终存到dx[i]时，再把pad的额外部分去掉, by <code>[pad:-pad, pad:-pad]</code>.</p>
+<p>求gradient时，每一个数据集中的 padded_x 会影响 gradient of each filter,所以是个累加的过程, <code>dw[f] += (dout[i,f,hh,ww] * padded_x[:, ii:ii+HH, jj:jj+WW])</code> ;</p>
+<p>同理，dx_[i]的每一块被filter扫描过的区域，也会受到 每一个 w 的影响，所以 <code>dx_[:, ii:ii+HH, jj:jj+WW] += (dout[i,f,hh,ww] * w[f,:,:,:])</code> .</p>
+<pre><code>def conv_backward_naive(dout, cache):
+    &quot;&quot;&quot;
+    A naive implementation of the backward pass for a convolutional layer.
+
+    Inputs:
+    - dout: Upstream derivatives.
+    - cache: A tuple of (x, w, b, conv_param) as in conv_forward_naive
+
+    Returns a tuple of:
+    - dx: Gradient with respect to x
+    - dw: Gradient with respect to w
+    - db: Gradient with respect to b
+    &quot;&quot;&quot;
+    dx, dw, db = None, None, None
+    ###########################################################################
+    # TODO: Implement the convolutional backward pass.                        #
+    ###########################################################################
+    # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+
+    x, w, b, conv_param = cache
+    stride = conv_param['stride']
+    pad = conv_param['pad']
+    N, F, H_out, W_out = dout.shape
+    F, C, HH, WW = w.shape
+
+    dw = np.zeros(w.shape)
+    dx = np.zeros(x.shape)
+    db = np.zeros(b.shape)
+
+    # 每一个filter都对任何一个x有影响,反之亦然,所以是+=
+    # out = np.zeros((N, F, H_out, W_out))
+
+    for i in range(N):
+      padded_x = np.pad(x[i], pad_width=((0,0),(pad,pad),(pad,pad)), mode='constant')
+      # dx_储存dx的中间值
+      dx_ = np.zeros(padded_x.shape)
+      for f in range(F):
+        for hh in range(H_out):
+          for ww in range(W_out):
+            ii = hh*stride
+            jj = ww*stride
+            dw[f] += (dout[i,f,hh,ww] * padded_x[:, ii:ii+HH, jj:jj+WW])
+            db[f] += dout[i,f,hh,ww]
+            dx_[:, ii:ii+HH, jj:jj+WW] += (dout[i,f,hh,ww] * w[f,:,:,:])
+      # assign dx_ to dx
+      dx[i] = dx_[:, pad:-pad, pad:-pad]
+
+    # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+    ###########################################################################
+    #                             END OF YOUR CODE                            #
+    ###########################################################################
+    return dx, dw, db
+</code></pre>
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Convolutional%20Networks&nbsp;-&nbsp;QDC%20personal%20website&amp;url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fcnn%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fcnn%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fcnn%2f&amp;description=Convolutional%20Networks"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fcnn%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+  <aside class="read-next">
+  
+  
+      <a class="read-next-story prev" style="no-cover" href="https://TopCoderChen.github.io/post/batch_norm/">
+          <section class="post">
+              <h2>Batch Normalization</h2>
+          </section>
+      </a>
+  
+</aside>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">QDC personal website</a> ©QDC GE 2020</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="https://TopCoderChen.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="https://TopCoderChen.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://TopCoderChen.github.io/js/index.js"></script>
+    
+</body>
+</html>
+
