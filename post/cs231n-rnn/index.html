@@ -12,15 +12,15 @@
 
 
 
-<meta name="twitter:title" content="Batch Normalization"/>
+<meta name="twitter:title" content="CS231n RNN"/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@"/>
 
 
 
-  	<meta property="og:title" content="Batch Normalization &middot; QDC personal website" />
+  	<meta property="og:title" content="CS231n RNN &middot; QDC personal website" />
   	<meta property="og:site_name" content="QDC personal website" />
-  	<meta property="og:url" content="https://TopCoderChen.github.io/post/batch_norm/" />
+  	<meta property="og:url" content="https://TopCoderChen.github.io/post/cs231n-rnn/" />
 
     
         
@@ -31,16 +31,16 @@
     
     <meta property="og:description" content="" />
   	<meta property="og:type" content="article" />
-    <meta property="article:published_time" content="2020-06-21T16:58:37-07:00" />
+    <meta property="article:published_time" content="2020-07-04T12:11:58-07:00" />
 
     
     
 
-    <title>Batch Normalization &middot; QDC personal website</title>
+    <title>CS231n RNN &middot; QDC personal website</title>
 
     
-    <meta name="description" content="https://cs231n.github.io/neural-networks-2/
-Batch normalization is normalizing based on each feature dimention (axis = 0) cross all examples in the batch. While" />
+    <meta name="description" content="Vanila RNN For each timestep, forward pass: $$h_t=f_W(h_{t-1}, x_t)$$ 具体的展开W $$h_t=tanh(W_{hh} * h_{t-1} &#43; W_{xh} * x_t)$$ $$y_t=W_{hy} * h_t$$
+在forward中的每一个tim" />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -64,7 +64,7 @@ Batch normalization is normalizing based on each feature dimention (axis = 0) cr
     
     <meta name="generator" content="Hugo 0.72.0" />
 
-    <link rel="canonical" href="https://TopCoderChen.github.io/post/batch_norm/" />
+    <link rel="canonical" href="https://TopCoderChen.github.io/post/cs231n-rnn/" />
 
     
       
@@ -101,23 +101,23 @@ Batch normalization is normalizing based on each feature dimention (axis = 0) cr
             
         ]
     },
-    "headline": "Batch Normalization",
-    "name": "Batch Normalization",
-    "wordCount":  143 ,
+    "headline": "CS231n RNN",
+    "name": "CS231n RNN",
+    "wordCount":  175 ,
     "timeRequired": "PT1M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
     },
-    "url": "https://TopCoderChen.github.io/post/batch_norm/",
-    "datePublished": "2020-06-21T16:58Z",
-    "dateModified": "2020-06-21T16:58Z",
+    "url": "https://TopCoderChen.github.io/post/cs231n-rnn/",
+    "datePublished": "2020-07-04T12:11Z",
+    "dateModified": "2020-07-04T12:11Z",
     
     
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://TopCoderChen.github.io/post/batch_norm/"
+        "@id": "https://TopCoderChen.github.io/post/cs231n-rnn/"
     }
 }
     </script>
@@ -198,13 +198,13 @@ Batch normalization is normalizing based on each feature dimention (axis = 0) cr
   <article class="post post">
 
     <header class="post-header">
-        <h1 class="post-title">Batch Normalization</h1>
+        <h1 class="post-title">CS231n RNN</h1>
         <small></small>
 
         <section class="post-meta">
         
-          <time class="post-date" datetime="2020-06-21T16:58:37-07:00">
-            Jun 21, 2020
+          <time class="post-date" datetime="2020-07-04T12:11:58-07:00">
+            Jul 4, 2020
           </time>
         
          
@@ -212,17 +212,59 @@ Batch normalization is normalizing based on each feature dimention (axis = 0) cr
     </header>
 
     <section class="post-content">
-      <p><a href="https://cs231n.github.io/neural-networks-2/">https://cs231n.github.io/neural-networks-2/</a></p>
-<p>Batch normalization is normalizing based on each feature dimention (axis = 0) cross all examples in the batch. While layer normalziation is for single training example.</p>
-<h3 id="gradient--calculation">Gradient  calculation</h3>
-<p>It&rsquo;s important to draw the computation dependency graph to better calculate the backward gradient.</p>
-<p>The gradient calculation can be made simplified by using the graph and combining common terms in the expression.</p>
-<p>One good gradient calculation post : <a href="https://kevinzakka.github.io/2016/09/14/batch_normalization/">https://kevinzakka.github.io/2016/09/14/batch_normalization/</a></p>
-<h3 id="fully-connected-network-impl">Fully connected network impl</h3>
-<p>Number of layers = 1 + number of hidden layers</p>
-<p>Backprop is kind of a reverse of forward.</p>
-<p>The intermediate results of forward pass such as (x, w, b) are cached for later backward pass. Each layer can have such cache, then we will have a list of cache.</p>
-<p>We can store parameters (gamma, beta, w, b etc.) in a map for each layer, indexed by (type + layer index) string.</p>
+      <h2 id="vanila-rnn">Vanila RNN</h2>
+<p>For each timestep, forward pass:
+$$h_t=f_W(h_{t-1}, x_t)$$
+具体的展开W
+$$h_t=tanh(W_{hh} * h_{t-1} + W_{xh} * x_t)$$
+$$y_t=W_{hy} * h_t$$</p>
+<p>在forward中的每一个timestep里return cache，这样就可以在同一个function里拿到cache，然后查看cache的信息，进行backward.</p>
+<p>在rnn_backward时，注意gradients of hidden states的来源有两个（需要加起来）:</p>
+<pre><code>    dx = np.zeros((N, T, D))
+    dprev_h = np.zeros((N, H))
+    dWx = np.zeros((D, H))
+    dWh = np.zeros((H, H))
+    db = np.zeros((H))
+
+    for t in range(T-1, -1, -1): # from T-1 to 0
+      dx[:,t,:], dprev_h, dWx_, dWh_, db_ = rnn_step_backward(dh[:,t,:] + dprev_h, cache[t])
+      dWx += dWx_
+      dWh += dWh_
+      db += db_
+
+    dh0 = dprev_h
+</code></pre><h2 id="captioningrnn">CaptioningRNN</h2>
+<h3 id="forward-pass">forward pass</h3>
+<ol>
+<li>affine_forward() &amp; word_embedding_forward() 分别给出 initial hidden states &amp; captions embedded input, 注意这两个function是独立的:</li>
+</ol>
+<p><code>h0, features_cache = affine_forward(image_features, W_proj, b_proj)</code></p>
+<p><code>captions_in_emb, emb_in_cache = word_embedding_forward(captions_in, W_embed)</code></p>
+<p><em>从upstream的CNN的image_features通过affine来得到initial hidden state.</em></p>
+<ol start="2">
+<li>RNN forward</li>
+</ol>
+<p><code>final_h, rnn_cache = rnn_forward(captions_in_emb, h0, Wx, Wh, b) </code></p>
+<ol start="3">
+<li>compute scores over the vocabulary at every timestep using the hidden states</li>
+</ol>
+<p><code>temporal_scores, temporal_cache = temporal_affine_forward(final_h, W_vocab, b_vocab)</code></p>
+<ol start="4">
+<li>loss and gradients</li>
+</ol>
+<p><code>loss, dout = temporal_softmax_loss(temporal_scores, captions_out, mask)</code></p>
+<h3 id="backward-pass">backward pass</h3>
+<p>同样的，word_embedding_backward()和affine_backward()互不影响.</p>
+<pre><code>dx_tmp, grads['W_vocab'], grads['b_vocab'] = temporal_affine_backward(dout, temporal_cache)
+
+drnn, dh0, grads['Wx'], grads['Wh'], grads['b'] = rnn_backward(dx_tmp, rnn_cache)
+
+grads['W_embed'] = word_embedding_backward(drnn, emb_in_cache)
+
+dfeatures, grads['W_proj'], grads['b_proj'] = affine_backward(dh0, features_cache)
+</code></pre><h3 id="numpy">Numpy</h3>
+<p>2个规则弄懂numpy的broadcast广播机制
+<a href="https://zhuanlan.zhihu.com/p/60365398">https://zhuanlan.zhihu.com/p/60365398</a></p>
 
     </section>
 
@@ -238,19 +280,19 @@ Batch normalization is normalizing based on each feature dimention (axis = 0) cr
     
 <section class="share">
   <h4>Share this post</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Batch%20Normalization&nbsp;-&nbsp;QDC%20personal%20website&amp;url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fbatch_norm%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=CS231n%20RNN&nbsp;-&nbsp;QDC%20personal%20website&amp;url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fcs231n-rnn%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
       <span class="hidden">Twitter</span>
   </a>
-  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fbatch_norm%2f"
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fcs231n-rnn%2f"
       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fbatch_norm%2f&amp;description=Batch%20Normalization"
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fcs231n-rnn%2f&amp;description=CS231n%20RNN"
       onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
       <span class="hidden">Pinterest</span>
   </a>
-  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fbatch_norm%2f"
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=https%3a%2f%2fTopCoderChen.github.io%2fpost%2fcs231n-rnn%2f"
      onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
       <span class="hidden">Google+</span>
   </a>
@@ -274,17 +316,10 @@ Batch normalization is normalizing based on each feature dimention (axis = 0) cr
 
   <aside class="read-next">
   
-      <a class="read-next-story" style="no-cover" href="https://TopCoderChen.github.io/post/cnn/">
+  
+      <a class="read-next-story prev" style="no-cover" href="https://TopCoderChen.github.io/post/cnn/">
           <section class="post">
               <h2>Convolutional Networks</h2>
-              
-          </section>
-      </a>
-  
-  
-      <a class="read-next-story prev" style="no-cover" href="https://TopCoderChen.github.io/post/cs231n/">
-          <section class="post">
-              <h2>CS231n learning note</h2>
           </section>
       </a>
   

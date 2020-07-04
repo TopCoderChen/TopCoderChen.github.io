@@ -197,6 +197,31 @@
 	
 	   <article class="post post">
     <header class="post-header">
+        <h2 class="post-title"><a href="https://TopCoderChen.github.io/post/cs231n-rnn/">CS231n RNN</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Vanila RNN For each timestep, forward pass: $$h_t=f_W(h_{t-1}, x_t)$$ 具体的展开W $$h_t=tanh(W_{hh} * h_{t-1} + W_{xh} * x_t)$$ $$y_t=W_{hy} * h_t$$
+在forward中的每一个timestep里return cache，这样就可以在同一个function里拿到cache，然后查看cache的信息，进行backward.
+在rnn_backward时，注意gradients of hidden states的来源有两个（需要加起来）:
+ dx = np.zeros((N, T, D)) dprev_h = np.zeros((N, H)) dWx = np.zeros((D, H)) dWh = np.zeros((H, H)) db = np.zeros((H)) for t in range(T-1, -1, -1): # from T-1 to 0 dx[:,t,:], dprev_h, dWx_, dWh_, db_ = rnn_step_backward(dh[:,t,:] + dprev_h, cache[t]) dWx += dWx_ dWh += dWh_ db += db_ dh0 = dprev_h CaptioningRNN forward pass  affine_forward() &amp; word_embedding_forward() 分别给出 initial hidden states &amp; captions embedded input, 注意这两个function是独立的:  h0, features_cache = affine_forward(image_features, W_proj, b_proj) <a class="read-more" href="https://TopCoderChen.github.io/post/cs231n-rnn/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+
+        
+
+        
+        <time class="post-date" datetime="2020-07-04T12:11:58-07:00">
+            4 Jul 2020
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post post">
+    <header class="post-header">
         <h2 class="post-title"><a href="https://TopCoderChen.github.io/post/cnn/">Convolutional Networks</a></h2>
     </header>
     <section class="post-excerpt">
@@ -216,33 +241,6 @@ forward pass Note
         
         <time class="post-date" datetime="2020-06-27T11:25:58-07:00">
             27 Jun 2020
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post post">
-    <header class="post-header">
-        <h2 class="post-title"><a href="https://TopCoderChen.github.io/post/batch_norm/">Batch Normalization</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>https://cs231n.github.io/neural-networks-2/
-Batch normalization is normalizing based on each feature dimention (axis = 0) cross all examples in the batch. While layer normalziation is for single training example.
-Gradient calculation It&rsquo;s important to draw the computation dependency graph to better calculate the backward gradient.
-The gradient calculation can be made simplified by using the graph and combining common terms in the expression.
-One good gradient calculation post : https://kevinzakka.github.io/2016/09/14/batch_normalization/
-Fully connected network impl Number of layers = 1 + number of hidden layers <a class="read-more" href="https://TopCoderChen.github.io/post/batch_norm/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-
-        
-
-        
-        <time class="post-date" datetime="2020-06-21T16:58:37-07:00">
-            21 Jun 2020
         </time>
     </footer>
 </article>
@@ -268,6 +266,7 @@ Fully connected network impl Number of layers = 1 + number of hidden layers <a c
         
     </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
     <script type="text/javascript" src="https://TopCoderChen.github.io/js/jquery.js"></script>
     <script type="text/javascript" src="https://TopCoderChen.github.io/js/jquery.fitvids.js"></script>
     <script type="text/javascript" src="https://TopCoderChen.github.io/js/index.js"></script>

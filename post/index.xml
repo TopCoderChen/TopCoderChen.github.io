@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>©QDC GE 2020</copyright>
-    <lastBuildDate>Sat, 27 Jun 2020 11:25:58 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2020 12:11:58 -0700</lastBuildDate>
     
 	<atom:link href="https://TopCoderChen.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CS231n RNN</title>
+      <link>https://TopCoderChen.github.io/post/cs231n-rnn/</link>
+      <pubDate>Sat, 04 Jul 2020 12:11:58 -0700</pubDate>
+      
+      <guid>https://TopCoderChen.github.io/post/cs231n-rnn/</guid>
+      <description>Vanila RNN For each timestep, forward pass: $$h_t=f_W(h_{t-1}, x_t)$$ 具体的展开W $$h_t=tanh(W_{hh} * h_{t-1} + W_{xh} * x_t)$$ $$y_t=W_{hy} * h_t$$
+在forward中的每一个timestep里return cache，这样就可以在同一个function里拿到cache，然后查看cache的信息，进行backward.
+在rnn_backward时，注意gradients of hidden states的来源有两个（需要加起来）:
+ dx = np.zeros((N, T, D)) dprev_h = np.zeros((N, H)) dWx = np.zeros((D, H)) dWh = np.zeros((H, H)) db = np.zeros((H)) for t in range(T-1, -1, -1): # from T-1 to 0 dx[:,t,:], dprev_h, dWx_, dWh_, db_ = rnn_step_backward(dh[:,t,:] + dprev_h, cache[t]) dWx += dWx_ dWh += dWh_ db += db_ dh0 = dprev_h CaptioningRNN forward pass  affine_forward() &amp;amp; word_embedding_forward() 分别给出 initial hidden states &amp;amp; captions embedded input, 注意这两个function是独立的:  h0, features_cache = affine_forward(image_features, W_proj, b_proj)</description>
+    </item>
     
     <item>
       <title>Convolutional Networks</title>
