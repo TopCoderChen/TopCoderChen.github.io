@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>©QDC GE 2020</copyright>
-    <lastBuildDate>Sat, 04 Jul 2020 12:11:58 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2020 19:46:57 -0700</lastBuildDate>
     
 	<atom:link href="https://TopCoderChen.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>decltype &amp; std::result_of</title>
+      <link>https://TopCoderChen.github.io/cpp/result_of/</link>
+      <pubDate>Sun, 05 Jul 2020 19:46:57 -0700</pubDate>
+      
+      <guid>https://TopCoderChen.github.io/cpp/result_of/</guid>
+      <description>decltype example // Example program #include &amp;lt;iostream&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;map&amp;gt; template&amp;lt;typename InputIter, typename IDGetter&amp;gt; void classify(InputIter begin, InputIter end, IDGetter id_getter) { for (auto it = begin; it != end; ++it) { int id = id_getter(*it); std::cout &amp;lt;&amp;lt; &amp;quot;id = &amp;quot; &amp;lt;&amp;lt; id &amp;lt;&amp;lt; &amp;quot;\n&amp;quot;; } } template&amp;lt;typename InputIter&amp;gt; void classify(InputIter begin, InputIter end) { auto id_getter = [](decltype(*begin) x) -&amp;gt; decltype(*begin) { return x; }; classify(begin, end, id_getter); } int main() { std::map&amp;lt;int, int&amp;gt; m = { {1, 1}, {2, 1}}; classify(m.</description>
+    </item>
     
     <item>
       <title>CS231n RNN</title>

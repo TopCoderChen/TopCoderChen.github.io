@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        <meta name="twitter:card" content="summary"/>
+    
+
+
+
+<meta name="twitter:title" content="decltype &amp; std::result_of"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@"/>
+
+
+
+  	<meta property="og:title" content="decltype &amp; std::result_of &middot; QDC personal website" />
+  	<meta property="og:site_name" content="QDC personal website" />
+  	<meta property="og:url" content="https://TopCoderChen.github.io/cpp/result_of/" />
+
+    
+        
+            <meta property="og:image" content="/images/cats.png"/>
+        
+    
+
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2020-07-05T19:46:57-07:00" />
+
+    
+    
+
+    <title>decltype &amp; std::result_of &middot; QDC personal website</title>
+
+    
+    <meta name="description" content="decltype example // Example program #include &amp;lt;iostream&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;map&amp;gt; template&amp;lt;typename InputIter, typename IDGetter&amp;gt;" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://TopCoderChen.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="https://TopCoderChen.github.io/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="https://TopCoderChen.github.io/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="https://TopCoderChen.github.io/css/nav.css" />
+
+    
+
+    
+
+    
+      
+          <link href="https://TopCoderChen.github.io/index.xml" rel="alternate" type="application/rss+xml" title="QDC personal website" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.72.0" />
+
+    <link rel="canonical" href="https://TopCoderChen.github.io/cpp/result_of/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null ,
+        "logo": "https://TopCoderChen.github.io/images/logo.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://TopCoderChen.github.io/images/logo.png",
+            "width": 250,
+            "height": 250
+        }, 
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "decltype \u0026 std::result_of",
+    "name": "decltype \u0026 std::result_of",
+    "wordCount":  304 ,
+    "timeRequired": "PT2M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "https://TopCoderChen.github.io/cpp/result_of/",
+    "datePublished": "2020-07-05T19:46Z",
+    "dateModified": "2020-07-05T19:46Z",
+    
+    
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://TopCoderChen.github.io/cpp/result_of/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="https://TopCoderChen.github.io/cpp">C&#43;&#43;</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="https://TopCoderChen.github.io/blog">Blog</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="https://TopCoderChen.github.io/post">AI</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="https://TopCoderChen.github.io/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo" href="https://TopCoderChen.github.io/"><img src="https://TopCoderChen.github.io/images/logo.png" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post cpp">
+
+    <header class="post-header">
+        <h1 class="post-title">decltype &amp; std::result_of</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      <h3 id="decltype-example">decltype example</h3>
+<pre><code>// Example program
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+
+template&lt;typename InputIter, typename IDGetter&gt;
+void classify(InputIter begin, InputIter end, IDGetter id_getter) {
+    for (auto it = begin; it != end; ++it) {
+        int id = id_getter(*it);
+        std::cout &lt;&lt; &quot;id = &quot; &lt;&lt; id &lt;&lt; &quot;\n&quot;;
+    }
+}
+
+template&lt;typename InputIter&gt;
+void classify(InputIter begin, InputIter end) {
+    auto id_getter = [](decltype(*begin) x) -&gt; decltype(*begin) {
+        return x;
+    };
+    classify(begin, end, id_getter);
+}
+
+int main() {
+  std::map&lt;int, int&gt; m = { {1, 1}, {2, 1}};
+  classify(m.begin(), m.end(), 
+    [](const decltype(m)::value_type&amp; p) {
+        return p.first; 
+    }
+  );
+  return 0;
+}
+
+</code></pre><p>Output:</p>
+<pre><code>id = 1
+id = 2
+</code></pre><h3 id="stdresult_of">std::result_of</h3>
+<p>用于在编译的时候infer出一个可调用对象(函数,std::funciton或者重载了operator()操作的对象等)的返回值类型, 主要用于模板编写中.</p>
+<pre><code>template&lt;class F, class... ArgTypes &gt;
+class result_of&lt;F(ArgTypes...)&gt;;
+</code></pre><p>模板参数:</p>
+<pre><code>Fn
+         可调用对象
+
+ArgTypes...
+         参数列表. 注意是类型(int , string等)
+成员:
+type
+         可调用对象的返回类型.(主要用该成员来获得结果)
+</code></pre><p>一个应用实例:</p>
+<p>有一个vector<!-- raw HTML omitted -->,想要编写一个Group_by函数,实现对这个vector<!-- raw HTML omitted -->按Person的某个字段分组.</p>
+<p>因为字段未定,编写一个模板比较好.</p>
+<p>思路是向Group_by传一个函数,让用户决定这个字段.分组比较简单,数据插入一个multimap&lt;T,Person&gt;返回即可,但是定义multimap中的T类型由用户传入的函数决定.于是这时候就可以用result_of来确定函数的返回值,即T的类型.</p>
+<pre><code>
+#include&lt;iostream&gt;
+#include&lt;map&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+#include &lt;utility&gt;
+using namespace std;
+ 
+struct Person {
+    string name;
+    int age;
+    string city;    
+};
+ 
+vector&lt;Person&gt; vt = {
+    {&quot;aa&quot;,20,&quot;shanghai&quot;},
+    {&quot;bb&quot;,25,&quot;beijing&quot;},
+    {&quot;cc&quot;,20,&quot;nanjing&quot;},
+    {&quot;dd&quot;,25,&quot;nanjing&quot;}
+};
+ 
+//Group_by函数
+template&lt;typename Fn&gt;
+multimap&lt;typename result_of&lt;Fn(Person)&gt;::type, Person&gt; GroupBy(const vector&lt;Person&gt;&amp; vt,const Fn&amp; chooseKey){
+	typedef typename result_of&lt;Fn(Person)&gt;::type key_type;
+	multimap&lt;key_type,Person&gt; map;
+        for_each(vt.begin(),vt.end(),
+                    [&amp;](const Person&amp; p){
+                    map.insert(make_pair(chooseKey(p),p));
+                    });
+    return map;
+}
+ 
+int main() {   
+    // Group by Age
+    auto res = GroupBy(vt, [](const Person&amp; p){ return p.age; } );
+    // Group by City
+    auto res1 = GroupBy(vt, [](const Person&amp; p) { return p.city; } );
+ 
+    cout &lt;&lt; &quot;----------group by age:---------------&quot; &lt;&lt; endl;
+    for_each(res.begin(),res.end(),
+        [](decltype(res)::value_type &amp; p){
+            cout &lt;&lt; p.second.name &lt;&lt;&quot; &quot; &lt;&lt; p.second.city &lt;&lt; &quot;  &quot; &lt;&lt; p.second.age  &lt;&lt; endl;
+        }
+    );
+                    
+    cout &lt;&lt; &quot;----------group by city:---------------&quot;&lt;&lt; endl;
+    for_each(res1.begin(),res1.end(),
+        [](decltype(res1)::value_type &amp; p){
+            cout &lt;&lt; p.second.name &lt;&lt;&quot; &quot; &lt;&lt; p.second.city &lt;&lt; &quot;  &quot; &lt;&lt; p.second.age  &lt;&lt; endl;
+        }
+    );
+    return 0;
+}
+</code></pre><p>Output:</p>
+<pre><code>----------group by age:---------------
+aa shanghai  20
+cc nanjing  20
+bb beijing  25
+dd nanjing  25
+----------group by city:---------------
+bb beijing  25
+cc nanjing  20
+dd nanjing  25
+aa shanghai  20
+</code></pre>
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+    
+<section class="share">
+  <h4>Share this cpp</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=decltype%20%26%20std%3a%3aresult_of&nbsp;-&nbsp;QDC%20personal%20website&amp;url=https%3a%2f%2fTopCoderChen.github.io%2fcpp%2fresult_of%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fTopCoderChen.github.io%2fcpp%2fresult_of%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fTopCoderChen.github.io%2fcpp%2fresult_of%2f&amp;description=decltype%20%26%20std%3a%3aresult_of"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=https%3a%2f%2fTopCoderChen.github.io%2fcpp%2fresult_of%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+  <aside class="read-next">
+  
+  
+</aside>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">QDC personal website</a> ©QDC GE 2020</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+    <script type="text/javascript" src="https://TopCoderChen.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="https://TopCoderChen.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://TopCoderChen.github.io/js/index.js"></script>
+    
+</body>
+</html>
+

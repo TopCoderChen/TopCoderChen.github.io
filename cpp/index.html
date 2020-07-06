@@ -13,15 +13,15 @@
 
 
 
-<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:title" content="Cpps"/>
 <meta name="twitter:description" content="Hacker zone"/>
 <meta name="twitter:site" content="@"/>
 
 
 
-  	<meta property="og:title" content="Posts &middot; QDC personal website" />
+  	<meta property="og:title" content="Cpps &middot; QDC personal website" />
   	<meta property="og:site_name" content="QDC personal website" />
-  	<meta property="og:url" content="https://TopCoderChen.github.io/post/" />
+  	<meta property="og:url" content="https://TopCoderChen.github.io/cpp/" />
 
     
         
@@ -34,7 +34,7 @@
     <meta property="og:description" content="Hacker zone" />
     
 
-    <title>Posts &middot; QDC personal website</title>
+    <title>Cpps &middot; QDC personal website</title>
 
     
     <meta name="description" content="Hacker zone" />
@@ -58,12 +58,12 @@
           <link href="https://TopCoderChen.github.io/index.xml" rel="alternate" type="application/rss+xml" title="QDC personal website" />
       
       
-        <link href="https://TopCoderChen.github.io/post/index.xml" rel="alternate" type="application/rss+xml" title="Posts &middot; QDC personal website" />
+        <link href="https://TopCoderChen.github.io/cpp/index.xml" rel="alternate" type="application/rss+xml" title="Cpps &middot; QDC personal website" />
       
     
     <meta name="generator" content="Hugo 0.72.0" />
 
-    <link rel="canonical" href="https://TopCoderChen.github.io/post/" />
+    <link rel="canonical" href="https://TopCoderChen.github.io/cpp/" />
 
     
       
@@ -142,7 +142,7 @@
     </ul>
 
     
-    <a class="subscribe-button icon-feed" href="https://TopCoderChen.github.io/post/index.xml">Subscribe</a>
+    <a class="subscribe-button icon-feed" href="https://TopCoderChen.github.io/cpp/index.xml">Subscribe</a>
     
 </div>
 <span class="nav-cover"></span>
@@ -167,7 +167,7 @@
     </nav>
     <div class="vertical">
         <div class="main-header-content inner">
-            <h1 class="page-title">Posts</h1>
+            <h1 class="page-title">Cpps</h1>
             <h2 class="page-description">
                 
             </h2>
@@ -181,25 +181,20 @@
 	<div class="extra-pagination inner">
     <nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 2</span>
-	
-	    <a class="older-posts" href="https://TopCoderChen.github.io/post/page/2/">Older Posts &rarr;</a>
+	<span class="page-number">Page 1 of 1</span>
 	
 </nav>
 
 	</div>
 
 	
-	   <article class="post post">
+	   <article class="post cpp">
     <header class="post-header">
-        <h2 class="post-title"><a href="https://TopCoderChen.github.io/post/cs231n-rnn/">CS231n RNN</a></h2>
+        <h2 class="post-title"><a href="https://TopCoderChen.github.io/cpp/result_of/">decltype &amp; std::result_of</a></h2>
     </header>
     <section class="post-excerpt">
         
-            <p>Vanila RNN For each timestep, forward pass: $$h_t=f_W(h_{t-1}, x_t)$$ 具体的展开W $$h_t=tanh(W_{hh} * h_{t-1} + W_{xh} * x_t)$$ $$y_t=W_{hy} * h_t$$
-在forward中的每一个timestep里return cache，这样就可以在同一个function里拿到cache，然后查看cache的信息，进行backward.
-在rnn_backward时，注意gradients of hidden states的来源有两个（需要加起来）:
- dx = np.zeros((N, T, D)) dprev_h = np.zeros((N, H)) dWx = np.zeros((D, H)) dWh = np.zeros((H, H)) db = np.zeros((H)) for t in range(T-1, -1, -1): # from T-1 to 0 dx[:,t,:], dprev_h, dWx_, dWh_, db_ = rnn_step_backward(dh[:,t,:] + dprev_h, cache[t]) dWx += dWx_ dWh += dWh_ db += db_ dh0 = dprev_h CaptioningRNN forward pass  affine_forward() &amp; word_embedding_forward() 分别给出 initial hidden states &amp; captions embedded input, 注意这两个function是独立的:  h0, features_cache = affine_forward(image_features, W_proj, b_proj) <a class="read-more" href="https://TopCoderChen.github.io/post/cs231n-rnn/">&raquo;</a></p>
+            <p>decltype example // Example program #include &lt;iostream&gt; #include &lt;string&gt; #include &lt;map&gt; template&lt;typename InputIter, typename IDGetter&gt; void classify(InputIter begin, InputIter end, IDGetter id_getter) { for (auto it = begin; it != end; ++it) { int id = id_getter(*it); std::cout &lt;&lt; &quot;id = &quot; &lt;&lt; id &lt;&lt; &quot;\n&quot;; } } template&lt;typename InputIter&gt; void classify(InputIter begin, InputIter end) { auto id_getter = [](decltype(*begin) x) -&gt; decltype(*begin) { return x; }; classify(begin, end, id_getter); } int main() { std::map&lt;int, int&gt; m = { {1, 1}, {2, 1}}; classify(m. <a class="read-more" href="https://TopCoderChen.github.io/cpp/result_of/">&raquo;</a></p>
         
     </section>
     <footer class="post-meta">
@@ -208,34 +203,8 @@
         
 
         
-        <time class="post-date" datetime="2020-07-04T12:11:58-07:00">
-            4 Jul 2020
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post post">
-    <header class="post-header">
-        <h2 class="post-title"><a href="https://TopCoderChen.github.io/post/cnn/">Convolutional Networks</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>https://cs231n.github.io/assignments2020/assignment2/#q4-convolutional-networks-30-points
-Convolution layer implementation In CNN, weight is for filter;
-The number of input examples and number of filters all impact how many weight params are needed.
-forward pass Note
- Pad the input Don&rsquo;t forget to add bias term  def conv_forward_naive(x, w, b, conv_param): &quot;&quot;&quot; A naive implementation of the forward pass for a convolutional layer. The input consists of N data points, each with C channels, height H and width W. <a class="read-more" href="https://TopCoderChen.github.io/post/cnn/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-
-        
-
-        
-        <time class="post-date" datetime="2020-06-27T11:25:58-07:00">
-            27 Jun 2020
+        <time class="post-date" datetime="2020-07-05T19:46:57-07:00">
+            5 Jul 2020
         </time>
     </footer>
 </article>
@@ -244,9 +213,7 @@ forward pass Note
 
 	<nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 2</span>
-	
-	    <a class="older-posts" href="https://TopCoderChen.github.io/post/page/2/">Older Posts &rarr;</a>
+	<span class="page-number">Page 1 of 1</span>
 	
 </nav>
 
